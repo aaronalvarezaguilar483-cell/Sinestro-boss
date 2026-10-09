@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:entity",
+  "pools": [
+    { "rolls": 1, "entries": [ { "type": "minecraft:item", "name": "a_new_corps:yellowlanternring" } ] },
+    { "rolls": 1, "entries": [ { "type": "minecraft:item", "name": "a_new_corps:yellowbatterycore",
+        "functions": [ { "function": "minecraft:set_count", "count": { "type": "minecraft:uniform", "min": 1, "max": 2 } } ] } ] },
+    { "rolls": 1, "entries": [ { "type": "minecraft:item", "name": "a_new_corps:centralbatteryshard_yellow" } ] },
+    { "rolls": 1, "conditions": [ { "condition": "minecraft:random_chance", "chance": 0.25 } ],
+      "entries": [ { "type": "minecraft:item", "name": "a_new_corps:scytheyellow" } ] },
+    { "rolls": 1, "entries": [ { "type": "minecraft:item", "name": "minecraft:nether_star" } ] }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "id": "sinestro_boss",
+  "version": "${version}",
+  "name": "Sinestro Boss",
+  "description": "Jefe Sinestro para A New Corps (Fabric 1.20.1).",
+  "authors": [],
+  "license": "MIT",
+  "environment": "*",
+  "entrypoints": {
+    "main": ["com.sinestroboss.SinestroBoss"],
+    "client": ["com.sinestroboss.client.SinestroBossClient"]
+  },
+  "depends": {
+    "fabricloader": ">=0.15.0",
+    "minecraft": "~1.20.1",
+    "java": ">=17",
+    "fabric-api": "*",
+    "a_new_corps": "*"
+  }
+}

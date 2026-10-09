@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [ "GGG", "GNG", "GGG" ],
+  "key": {
+    "G": { "item": "minecraft:gold_block" },
+    "N": { "item": "minecraft:nether_star" }
+  },
+  "result": { "item": "sinestro_boss:fear_totem" }
+}
