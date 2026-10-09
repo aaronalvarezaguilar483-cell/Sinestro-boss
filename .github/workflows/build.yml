@@ -1,8 +1,7 @@
-name: Build
+name: Build Sinestro Boss
 
 on:
   push:
-    branches: [main, master]
   workflow_dispatch:
 
 permissions:
@@ -13,24 +12,54 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Descargar código
+      - name: Descargar repositorio
         uses: actions/checkout@v4
 
-      - name: Configurar Java 17
+      - name: Comprobar ZIP
+        run: |
+          test -f sinestro_boss.zip || {
+            echo "ERROR: No se encontró sinestro_boss.zip"
+            exit 1
+          }
+
+      - name: Descomprimir proyecto
+        run: unzip -q -o sinestro_boss.zip -d proyecto
+
+      - name: Configurar Java
         uses: actions/setup-java@v4
         with:
           distribution: temurin
           java-version: '17'
 
-      - name: Dar permisos a Gradle
-        run: chmod +x gradlew
+      - name: Configurar Gradle
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.8'
 
-      - name: Compilar mod
-        run: ./gradlew build --no-daemon
+      - name: Encontrar y compilar proyecto
+        run: |
+          FILE=$(find proyecto -type f \
+            \( -name build.gradle -o -name build.gradle.kts \) \
+            | head -n 1)
 
-      - name: Guardar archivo JAR
+          if [ -z "$FILE" ]; then
+            echo "ERROR: El ZIP no contiene build.gradle ni build.gradle.kts"
+            exit 1
+          fi
+
+          DIR=$(dirname "$FILE")
+          cd "$DIR"
+
+          if [ -f gradlew ]; then
+            chmod +x gradlew
+            ./gradlew build --no-daemon
+          else
+            gradle build --no-daemon
+          fi
+
+      - name: Guardar JAR compilado
         uses: actions/upload-artifact@v4
         with:
-          name: Sinestro-Boss
-          path: build/libs/*.jar
+          name: sinestro_boss
+          path: proyecto/**/build/libs/*.jar
           if-no-files-found: error
